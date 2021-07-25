@@ -35,6 +35,10 @@ app.post("/posts/:id/comments", async (req, res) => {
   })
   res.status(201).send({ mes: "Post created successfully.", comments })
 })
+app.post("/events", (req, res) => {
+  console.log("Event Received : ", req.body.type)
+  res.status(200).send({ msg: "Event Received" })
+})
 
 app.listen(PORT, () =>
   console.log(`Server has been started on the port ${PORT}`)
