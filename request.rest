@@ -1,0 +1,17 @@
+
+POST http://localhost:4002/events
+Content-Type: application/json
+
+{
+  
+}
+
+//Create Post
+###
+POST http://localhost:4000/posts
+Content-Type: application/json
+
+{
+  "title": "What the hell ?"
+}
+

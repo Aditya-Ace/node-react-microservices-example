@@ -14,18 +14,21 @@ app.use(cors())
 const posts = {}
 app.get("/posts", (req, res) => res.status(200).send(posts))
 app.post("/posts", async (req, res) => {
-  const id = randomBytes(4).toString("hex")
-  const { title } = req.body
-  const data = { id, title }
-  posts[id] = { id, title }
-  await axios.post("http://localhost:4005/events", {
-    type: "PostCreated",
-    data,
-  })
-  res.status(201).send({ mes: "Post created successfully.", data })
+  try {
+    const id = randomBytes(4).toString("hex")
+    const { title } = req.body
+    const data = { id, title }
+    posts[id] = data
+    res.status(201).send({ mes: "Post created successfully.", data })
+    await axios.post("http://localhost:4005/events", {
+      type: "PostCreated",
+      data,
+    })
+  } catch (error) {
+    console.error(error)
+  }
 })
 app.post("/events", (req, res) => {
-  console.log("Event Received : ", req.body.type)
   res.status(200).send({ msg: "Event Received" })
 })
 
